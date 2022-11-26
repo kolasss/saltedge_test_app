@@ -11,7 +11,4 @@ services:
       - .:/ruby_app:cached
     ports:
       - "3000:3000"
-    # depends_on:
-    #   - rabbitmq
-    #   - swift
     env_file: .env
