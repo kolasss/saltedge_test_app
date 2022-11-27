@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Connections</h1>
+
+<div>
+  <% if @connections.present? %>
+    <% @connections.each do |connection| %>
+      <p>
+        <%= link_to connection.id, connection %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>no connections</p>
+  <% end %>
+</div>
+
+<%# <%= link_to "New connection", new_car_path %>

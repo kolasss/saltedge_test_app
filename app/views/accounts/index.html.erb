@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Accounts</h1>
+
+<div>
+  <% if @accounts.present? %>
+    <% @accounts.each do |account| %>
+      <p>
+        <%= link_to account.id, account %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>no accounts</p>
+  <% end %>
+</div>
+
+<%# <%= link_to "New account", new_car_path %> %>

@@ -10,7 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_26_070330) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_27_080301) do
+  create_table "accounts", force: :cascade do |t|
+    t.integer "connection_id", null: false
+    t.string "saltedge_id"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["connection_id"], name: "index_accounts_on_connection_id"
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.string "saltedge_id"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_connections_on_customer_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "saltedge_id"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "saltedge_id"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -23,4 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_070330) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "connections"
+  add_foreign_key "connections", "customers"
+  add_foreign_key "customers", "users"
+  add_foreign_key "transactions", "accounts"
 end
