@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :connection do
     customer
-    saltedge_id { 'qwer123' }
+    sequence :saltedge_id do |n|
+      "qwe#{n}"
+    end
   end
 end

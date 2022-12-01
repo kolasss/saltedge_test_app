@@ -3,7 +3,7 @@
   <br>
   saltedge id: <%= @connection.saltedge_id %>
   <br>
-  <%= link_to "Fetch data", fetch_connection_path(@connection), data: { turbo_method: "post" } %>
+  <%= link_to "Fetch data", fetch_connection_path(@connection), data: { turbo_method: "put" } %>
   <br>
   <%= link_to "Back to connections", connections_path %>
 </div>

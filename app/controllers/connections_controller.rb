@@ -1,6 +1,6 @@
 class ConnectionsController < ApplicationController
-  before_action :set_connection, only: %i[show refresh reconnect fetch destroy]
   before_action :authenticate_user!
+  before_action :set_connection, only: %i[show refresh reconnect fetch destroy]
 
   def index
     @connections = current_user.connections
@@ -13,12 +13,10 @@ class ConnectionsController < ApplicationController
 
   def new
     @provider = Provider.find_by(code: 'fake_oauth_client_xf')
-    # @fields = Providers::ExtractFormFields.call(@provider).value_or([])
   end
 
   def create
-    provider = Provider.find_by(code: params[:provider_code])
-    result = Connections::OauthCreate.call(current_user.customer, provider)
+    result = Connections::OauthCreate.call(current_user.customer, params[:provider_code])
 
     if result.success?
       # redirect_to connection_path(result.value!), notice: "Connection was successfully created."

@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :customer do
-    user
+  factory :transaction do
+    account
     sequence :saltedge_id do |n|
       "qwe#{n}"
     end

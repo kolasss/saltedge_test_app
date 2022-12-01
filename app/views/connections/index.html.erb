@@ -7,10 +7,10 @@
         <tr>
           <td><%= link_to connection.saltedge_id, connection %></td>
           <td>
-            <%= link_to 'Refresh', refresh_connection_path(connection), data: { turbo_method: "post" } %>
+            <%= link_to 'Refresh', refresh_connection_path(connection), data: { turbo_method: "put" } %>
           </td>
           <td>
-            <%= link_to 'Reconnect', reconnect_connection_path(connection), data: { turbo_method: "post" } %>
+            <%= link_to 'Reconnect', reconnect_connection_path(connection), data: { turbo_method: "put" } %>
           </td>
           <td>
             <%= link_to 'Destroy', connection_path(connection), data: { turbo_method: "delete" } %>

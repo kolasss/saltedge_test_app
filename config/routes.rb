@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   resources :connections, only: %i[index show new create destroy] do
     member do
-      post :refresh
-      post :reconnect
-      post :fetch
+      put :refresh
+      put :reconnect
+      put :fetch
     end
     collection do
       put :refresh_all

@@ -8,8 +8,7 @@ RSpec.describe Customers::Create do
   let(:user) do
     create(:user)
   end
-  let(:saltedge_customers) { double }
-  let(:saltedge) { double(customers: saltedge_customers) }
+  let(:remote_api) { double }
   let(:process_result) do
     Dry::Monads::Success(
       {
@@ -26,13 +25,13 @@ RSpec.describe Customers::Create do
   let(:customer_id) { '222222222222222222' }
 
   before do
-    allow(Saltedge).to receive(:customers).and_return(saltedge_customers)
-    allow(saltedge_customers).to receive(:create).and_return(process_result)
+    allow(Saltedge).to receive(:customers).and_return(remote_api)
+    allow(remote_api).to receive(:create).and_return(process_result)
   end
 
   it 'calls saltedge api' do
     expect(result.success?).to eq true
-    expect(saltedge_customers).to have_received(:create)
+    expect(remote_api).to have_received(:create)
   end
 
   it 'creates customer' do

@@ -3,7 +3,10 @@ module Connections
     include Callable
     include Dry::Monads[:result, :do]
 
-    def call(customer, provider)
+    def call(customer, provider_code)
+      return Failure(:no_customer) unless customer
+
+      provider = yield find_provider(provider_code)
       json = yield create_remote(customer, provider)
       connection = yield create(customer, json)
 
@@ -11,6 +14,15 @@ module Connections
     end
 
     private
+
+    def find_provider(provider_code)
+      provider = Provider.find_by(code: provider_code)
+      if provider
+        Success(provider)
+      else
+        Failure(:provider_not_found)
+      end
+    end
 
     def create_remote(customer, provider)
       Saltedge.oauth_providers.create(
