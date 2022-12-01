@@ -2,42 +2,17 @@ class Saltedge
   class << self
     include Dry::Monads[:result]
 
-    # attr_reader :app_id, :secret, :private_key
-    # EXPIRATION_TIME = 60
-    APP_ID = ENV['SALTEDGE_APP_ID']
-    SECRET = ENV['SALTEDGE_SECRET']
+    APP_ID = ENV.fetch('SALTEDGE_APP_ID')
+    SECRET = ENV.fetch('SALTEDGE_SECRET')
+    API_URL = 'https://www.saltedge.com/api/v5/'.freeze
 
-    # def self.verify_signature(public_key, data, signature)
-    #   public_key.verify(OpenSSL::Digest::SHA256.new, Base64.decode64(signature), data)
-    # end
-
-    # def initialize
-    #   @app_id      = ENV['']
-    #   @secret      = secret
-    #   @private_key = OpenSSL::PKey::RSA.new(File.open(private_pem_path))
-    # end
-
-    def request(method, url, params={})
-      # hash = {
-      #   method:     method,
-      #   url:        url,
-      #   expires_at: (Time.now + EXPIRATION_TIME).to_i,
-      #   params:     as_json(params)
-      # }
-
+    def request(method, path, params = {})
       response = RestClient::Request.execute(
-        method:  method,
-        url:     url,
+        method: method,
+        url: API_URL + path,
         payload: params.to_json,
-        # log:     Logger.new(STDOUT),
-        headers: {
-          "Accept"       => "application/json",
-          "Content-type" => "application/json",
-          # "Expires-at"   => hash[:expires_at],
-          # "Signature"    => sign_request(hash),
-          "App-Id"       => APP_ID,
-          "Secret"       => SECRET
-        }
+        log: Logger.new($stdout),
+        headers: headers
       )
       Success(json_parse(response.body))
     rescue RestClient::ExceptionWithResponse => e
@@ -48,37 +23,35 @@ class Saltedge
       Saltedge::Customers
     end
 
+    def connections
+      Saltedge::Connections
+    end
+
+    def accounts
+      Saltedge::Accounts
+    end
+
+    def transactions
+      Saltedge::Transactions
+    end
+
+    def oauth_providers
+      Saltedge::OauthProviders
+    end
+
     private
 
     def json_parse(string)
       JSON.parse(string, symbolize_names: true)
     end
 
-    # def sign_request(hash)
-    #   data = "#{hash[:expires_at]}|#{hash[:method].to_s.upcase}|#{hash[:url]}|#{hash[:params]}"
-    #   pp data
-    #   Base64.encode64(private_key.sign(OpenSSL::Digest::SHA256.new, data)).delete("\n")
-    # end
-
-    # def as_json(params)
-    #   return "" if params.empty?
-    #   params.to_json
-    # end
+    def headers
+      {
+        'Accept' => 'application/json',
+        'Content-type' => 'application/json',
+        'App-Id' => APP_ID,
+        'Secret' => SECRET
+      }
+    end
   end
-
-  # class Customers
-  #   class << self
-  #     def create(identifier)
-  #       Saltedge.request(
-  #         :post,
-  #         'https://www.saltedge.com/api/v5/customers',
-  #         {
-  #           data: {
-  #             identifier: identifier
-  #           }
-  #         }
-  #       )
-  #     end
-  #   end
-  # end
 end

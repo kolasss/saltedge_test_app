@@ -1,9 +1,10 @@
-<h1>Home#index</h1>
-
 <% if user_signed_in? %>
+  <h2>user: <%= current_user.email %></h2>
   <% if current_user.customer %>
+    <p>Customer data:</p>
     <div><%= current_user.customer.data %></div>
-  <% end%>
+  <% end %>
+  <br>
   <%= link_to 'list connections', connections_path %>
   <br>
   <%= link_to 'sign out user', destroy_user_session_path, data: { turbo_method: "delete" } %>

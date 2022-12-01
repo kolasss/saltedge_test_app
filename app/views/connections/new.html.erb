@@ -1,9 +1,23 @@
-<h1>New car</h1>
+<h1>New connection</h1>
 
-<%= render "form", car: @car %>
+<%= form_with(url: connections_path, data: { turbo: false }) do |form| %>
+  <div>
+    <%= form.label :provider_code, style: "display: block" %>
+    <%= form.text_field :provider_code, value: @provider.code, readonly: true %>
+  </div>
+
+  <div>
+    <%= form.check_box :user_consent, checked: true, disabled: true %>
+    <%= form.label :user_consent %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
 
 <br>
 
 <div>
-  <%= link_to "Back to cars", cars_path %>
+  <%= link_to "Back to connections", connections_path %>
 </div>

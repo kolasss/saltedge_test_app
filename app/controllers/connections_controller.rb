@@ -1,9 +1,8 @@
 class ConnectionsController < ApplicationController
-  # before_action :set_book, only: %i[ show edit update destroy ]
+  before_action :set_connection, only: %i[show refresh reconnect fetch destroy]
   before_action :authenticate_user!
 
   def index
-    # @connections = Connection.all
     @connections = current_user.connections
   end
 
@@ -12,48 +11,80 @@ class ConnectionsController < ApplicationController
     @accounts = @connection&.accounts
   end
 
-  # def new
-  #   @book = Book.new
-  # end
+  def new
+    @provider = Provider.find_by(code: 'fake_oauth_client_xf')
+    # @fields = Providers::ExtractFormFields.call(@provider).value_or([])
+  end
 
-  # # GET /books/1/edit
-  # def edit
-  # end
+  def create
+    provider = Provider.find_by(code: params[:provider_code])
+    result = Connections::OauthCreate.call(current_user.customer, provider)
 
-  # # POST /books
-  # def create
-  #   @book = Book.new(book_params)
+    if result.success?
+      # redirect_to connection_path(result.value!), notice: "Connection was successfully created."
+      redirect_to result.value![:redirect_to], allow_other_host: true
+    else
+      flash[:alert] = result.failure
+      redirect_back_or_to connections_path
+    end
+  end
 
-  #   if @book.save
-  #     redirect_to @book, notice: "Book was successfully created."
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # end
+  def refresh
+    result = Connections::Refresh.call(@connection)
 
-  # # PATCH/PUT /books/1
-  # def update
-  #   if @book.update(book_params)
-  #     redirect_to @book, notice: "Book was successfully updated."
-  #   else
-  #     render :edit, status: :unprocessable_entity
-  #   end
-  # end
+    if result.success?
+      redirect_to connection_path(result.value!), notice: 'Refresh sent.'
+    else
+      flash[:alert] = result.failure
+      redirect_back_or_to connections_path
+    end
+  end
 
-  # DELETE /books/1
-  # def destroy
-  #   @book.destroy
-  #   redirect_to books_url, notice: "Book was successfully destroyed."
-  # end
+  def reconnect
+    result = Connections::Reconnect.call(@connection)
+
+    if result.success?
+      redirect_to connection_path(result.value!), notice: 'Reconnected.'
+    else
+      flash[:alert] = result.failure
+      redirect_back_or_to connections_path
+    end
+  end
+
+  def refresh_all
+    RefreshConnectionsJob.perform_later
+    redirect_back_or_to connections_path, notice: 'Refresh all connections enqueued.'
+  end
+
+  def fetch
+    result = Connections::Fetch.call(@connection)
+
+    if result.success?
+      redirect_to connection_path(result.value!), notice: 'Fetched.'
+    else
+      flash[:alert] = result.failure
+      redirect_back_or_to connections_path
+    end
+  end
+
+  def destroy
+    result = Connections::Destroy.call(@connection)
+
+    if result.success?
+      redirect_to connections_path, notice: 'Destroyed.'
+    else
+      flash[:alert] = result.failure
+      redirect_back_or_to connections_path
+    end
+  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    # def set_book
-    #   @book = Book.find(params[:id])
-    # end
 
-    # Only allow a list of trusted parameters through.
-    def car_params
-      params.require(:car).permit(:title, :mark)
-    end
+  def set_connection
+    @connection = current_user.connections.find(params[:id])
+  end
+
+  def connection_params
+    params.require(:car).permit(:title, :mark)
+  end
 end

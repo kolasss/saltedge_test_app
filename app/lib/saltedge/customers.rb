@@ -1,15 +1,17 @@
-class Saltedge::Customers
-  class << self
-    def create(identifier)
-      Saltedge.request(
-        :post,
-        'https://www.saltedge.com/api/v5/customers',
-        {
-          data: {
-            identifier: identifier
+class Saltedge
+  class Customers
+    class << self
+      def create(identifier)
+        Saltedge.request(
+          :post,
+          'customers',
+          {
+            data: {
+              identifier: identifier
+            }
           }
-        }
-      )
+        )
+      end
     end
   end
 end

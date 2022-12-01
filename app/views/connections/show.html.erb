@@ -1,9 +1,24 @@
-<p style="color: green"><%= notice %></p>
+<div>
+  id: <%= @connection.id %>
+  <br>
+  saltedge id: <%= @connection.saltedge_id %>
+  <br>
+  <%= link_to "Fetch data", fetch_connection_path(@connection), data: { turbo_method: "post" } %>
+  <br>
+  <%= link_to "Back to connections", connections_path %>
+</div>
 
 <div>
-  <%= @connection.id %> |
-  <%# <%= link_to "Edit this connection", edit_connection_path(@connection) %> | %>
-  <%= link_to "Back to connections", connections_path %>
-
-  <%# <%= button_to "Destroy this connection", @connection, method: :delete %> %>
+  <h3>Accounts</h3>
+  <% if @accounts.present? %>
+    <table>
+      <% @accounts.each do |account| %>
+        <tr>
+          <td><%= link_to account.saltedge_id, account %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>no accounts</p>
+  <% end %>
 </div>

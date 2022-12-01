@@ -2,14 +2,26 @@
 
 <div>
   <% if @connections.present? %>
-    <% @connections.each do |connection| %>
-      <p>
-        <%= link_to connection.id, connection %>
-      </p>
-    <% end %>
+    <table>
+      <% @connections.each do |connection| %>
+        <tr>
+          <td><%= link_to connection.saltedge_id, connection %></td>
+          <td>
+            <%= link_to 'Refresh', refresh_connection_path(connection), data: { turbo_method: "post" } %>
+          </td>
+          <td>
+            <%= link_to 'Reconnect', reconnect_connection_path(connection), data: { turbo_method: "post" } %>
+          </td>
+          <td>
+            <%= link_to 'Destroy', connection_path(connection), data: { turbo_method: "delete" } %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= link_to "Refresh all connections", refresh_all_connections_path, data: { turbo_method: "put" } %>
   <% else %>
     <p>no connections</p>
   <% end %>
 </div>
 
-<%# <%= link_to "New connection", new_car_path %>
+<%= link_to "New connection", new_connection_path %>
