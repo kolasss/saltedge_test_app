@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Запуск в докере
 
-Things you may want to cover:
+сначала скопировать .env.sample в .env, настроить переменные
 
-* Ruby version
+для разработки
 
-* System dependencies
+```
+docker-compose build
+docker-compose run --service-ports web bash
 
-* Configuration
+```
 
-* Database creation
+запуск сервера
 
-* Database initialization
+```
+bin/rails s -b 0.0.0.0
+```
 
-* How to run the test suite
+запуск тестов
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+bin/rspec
+```
