@@ -11,7 +11,7 @@ class Saltedge
         method: method,
         url: API_URL + path,
         payload: params.to_json,
-        log: Logger.new($stdout),
+        # log: Logger.new($stdout),
         headers: headers
       )
       Success(json_parse(response.body))

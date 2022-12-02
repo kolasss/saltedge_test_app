@@ -47,6 +47,8 @@ class Saltedge
         )
       end
 
+      private
+
       def data
         {
           consent: {

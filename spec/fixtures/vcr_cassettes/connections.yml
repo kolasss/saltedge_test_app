@@ -1,0 +1,150 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.saltedge.com/api/v5/connections/892183610050747031
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.1.3p185
+      Content-Type:
+      - application/json
+      App-Id:
+      - D0NLHMGZ1mpmyaGbx1rhWPy-PpGn68XjbfW1ZmvWQYU
+      Secret:
+      - VJ9rEPIA-JlYm1nvYGDNXzWRLQgmtLP9hE-LZmkGJsw
+      Content-Length:
+      - '2'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - www.saltedge.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 02 Dec 2022 06:53:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Status:
+      - 200 OK
+      Etag:
+      - W/"c6d0b1f6444aebffe7b8a4b0f1e552b5"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 64edd1d3-3261-46af-8a5a-a064cdea3f8c
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; child-src 'self' www.google.com/recaptcha/;
+        connect-src 'self'; font-src 'self' fonts.googleapis.com fonts.gstatic.com
+        d1uuj3mi6rzwpm.cloudfront.net; form-action 'self'; img-src *; media-src 'none';
+        script-src 'self' www.gstatic.com www.google.com d1uuj3mi6rzwpm.cloudfront.net;
+        style-src 'self' 'unsafe-inline' fonts.googleapis.com d1uuj3mi6rzwpm.cloudfront.net;
+        report-uri /logger/csp
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - same-origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":{"id":"892183610050747031","secret":"sxrOGgnC5xFqUeBGtCpvP86_lC9sHctotxmh03-Op_0","provider_id":"3099","provider_code":"fake_oauth_client_xf","provider_name":"Fake
+        OAuth Bank with Client Keys","customer_id":"890071753601063846","next_refresh_possible_at":null,"created_at":"2022-12-01T11:55:50Z","updated_at":"2022-12-01T12:28:03Z","status":"inactive","categorization":"personal","daily_refresh":false,"store_credentials":true,"country_code":"XF","last_success_at":"2022-12-01T12:15:58Z","show_consent_confirmation":false,"last_consent_id":"892197026991708552","last_attempt":{"id":"892197026656164230","finished":true,"api_mode":"service","api_version":"5","locale":"en","user_present":true,"customer_last_logged_at":null,"remote_ip":"95.220.56.167","finished_recent":true,"partial":false,"automatic_fetch":true,"daily_refresh":false,"categorize":true,"custom_fields":{},"device_type":"desktop","user_agent":null,"exclude_accounts":[],"fetch_scopes":["accounts","transactions"],"from_date":"2022-09-02","to_date":"2022-12-01","interactive":false,"store_credentials":true,"include_natures":null,"show_consent_confirmation":false,"consent_id":"892197026991708552","fail_at":"2022-12-01T12:28:03Z","fail_message":"Unfinished
+        authorization.","fail_error_class":"ProviderAccessNotGranted","created_at":"2022-12-01T12:22:29Z","updated_at":"2022-12-01T12:28:03Z","success_at":null,"last_stage":{"id":"892199826974841600","name":"finish","interactive_html":null,"interactive_fields_names":[],"interactive_fields_options":null,"created_at":"2022-12-01T12:28:03Z","updated_at":"2022-12-01T12:28:03Z"}}}}'
+  recorded_at: Fri, 02 Dec 2022 06:53:51 GMT
+- request:
+    method: get
+    uri: https://www.saltedge.com/api/v5/connections/1234556
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.1.3p185
+      Content-Type:
+      - application/json
+      App-Id:
+      - D0NLHMGZ1mpmyaGbx1rhWPy-PpGn68XjbfW1ZmvWQYU
+      Secret:
+      - VJ9rEPIA-JlYm1nvYGDNXzWRLQgmtLP9hE-LZmkGJsw
+      Content-Length:
+      - '2'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - www.saltedge.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 02 Dec 2022 06:59:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Status:
+      - 404 Not Found
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 506aadbb-aa56-4802-867d-af61f2a2639e
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; child-src 'self' www.google.com/recaptcha/;
+        connect-src 'self'; font-src 'self' fonts.googleapis.com fonts.gstatic.com
+        d1uuj3mi6rzwpm.cloudfront.net; form-action 'self'; img-src *; media-src 'none';
+        script-src 'self' www.gstatic.com www.google.com d1uuj3mi6rzwpm.cloudfront.net;
+        style-src 'self' 'unsafe-inline' fonts.googleapis.com d1uuj3mi6rzwpm.cloudfront.net;
+        report-uri /logger/csp
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - same-origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"class":"ConnectionNotFound","message":"Connection with id:
+        ''1234556'' was not found.","documentation_url":"https://docs.saltedge.com/account_information/v5/#errors-connection_not_found","request_id":"506aadbb-aa56-4802-867d-af61f2a2639e"},"request":{"id":"1234556"}}'
+  recorded_at: Fri, 02 Dec 2022 06:59:40 GMT
+recorded_with: VCR 6.1.0
