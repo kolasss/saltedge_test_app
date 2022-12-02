@@ -35,3 +35,7 @@ module SaltedgeTestApp
     config.generators.system_tests = nil
   end
 end
+
+# HINT: fix для конфликта zeitwerk и devise без action_mailer
+# https://github.com/heartcombo/devise/issues/5140
+Rails.autoloaders.main.ignore('/usr/local/bundle/gems/devise-4.8.1/app/mailers/devise/mailer.rb')
