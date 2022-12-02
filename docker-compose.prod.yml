@@ -1,0 +1,30 @@
+---
+version: '3'
+services:
+  web:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/ruby_app:cached
+    ports:
+      - "3000:3000"
+    env_file: .env
+    labels:
+      - traefik.http.routers.web.rule=Host(`se.kolas.dev`)
+
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.9
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
