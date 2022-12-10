@@ -5,16 +5,9 @@ ENV LANG C.UTF-8
 RUN echo "gem: --no-document" > $HOME/.gemrc && \
     touch $HOME/.irb-history && \
     echo "IRB.conf[:SAVE_HISTORY] = 1000\nIRB.conf[:HISTORY_FILE] = '~/.irb-history'" > $HOME/.irbrc
-# RUN apt-get update -qq && \
-#     apt-get install -y \
-#         nodejs postgresql-client \
-#         git libmagic-dev graphviz poppler-utils
 
 RUN mkdir /ruby_app
 WORKDIR /ruby_app
-
-# ENV RAILS_ENV $RAILS_ENV
-# ENV PAGER $PAGER
 
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler -v 2.3.26
